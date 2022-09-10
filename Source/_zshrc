@@ -1,0 +1,126 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/opt/morlock/bin":$PATH
+
+set -o vi
+bindkey "^R" history-incremental-search-backward
+
+export HISTFILE=~/.zsh_history
+export HISTSIZE=100
+export SAVEHIST=100
+
+# Command prompt
+precmd() { print "" }
+PROMPT="%~> "
+
+setopt interactive_comments
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+alias ep="nogui-mvim ~/.zshrc && source ~/.zshrc"
+
+alias doglog="mvim ~/Dropbox/Documents/Misc/DogLog.txt"
+alias eblog="mvim ~/Dropbox/AnecdotalAbe/Blogs/RedPill.txt"
+alias edreams="mvim ~/Dropbox/Documents/DreamJournal/2022.txt"
+alias evision="mvim ~/Dropbox/Documents/Vision.txt"
+alias eg="mvim ~/Dropbox/Code/Grogo/Build.rogue"
+alias esrc="mvim ~/Dropbox/Documents/Misc/SourceMessages.txt"
+alias erants="mvim ~/Dropbox/Documents/AprilLee/Rants.txt"
+alias erecipes="mvim ~/Dropbox/Documents/Recipes.txt"
+alias elight="mvim ~/Dropbox/Documents/Light.txt"
+alias md="open -a /Applications/MacDown.app"
+
+alias cdaxor="cd ~/Projects/Games/AxorTheMighty"
+alias cdboss="cd ~/Projects/Boss"
+alias cdpcore="cd ~/Projects/Plasmacore"
+alias cdplaydate="cd /Users/abe/Developer/PlaydateSDK"
+alias cdr2="cd ~/Projects/R2"
+alias cdrogue="cd ~/Projects/Rogue"
+
+alias gitco="git checkout"
+alias gitd="git diff"
+alias gitlog='git log --date=format:"%Y.%m.%d" --pretty=format:"%Cgreen%h%Creset -%C(yellow)%d%Creset %<|($(($COLUMNS-40)))%s %C(cyan)(%cd) %C(green)<%an>%Creset" --abbrev-commit'
+alias gits="git status"
+alias gitundocommit="git reset --soft HEAD~"
+alias gitbranches="git fetch --all && git branch -a"
+alias gitb="git branch"
+alias gitrmlocal="git branch -d "
+
+alias h="history -200 | grogo cull history"
+alias pbj="grogo pbj"
+alias pbp="grogo pbp"
+
+function gitdx()
+{
+  git diff -- . \'!$1\'
+}
+
+function gitkr()
+{
+  if [ -z "$1" ]; then
+    open gitkraken://repo/$(pwd);
+  else
+    open gitkraken://repo/$(cd $1 && pwd);
+  fi
+}
+
+function cdnew()
+{
+  mkdir -p $1
+  cd $1
+}
+
+function wbs()
+{
+  wordlebuddy solver $1
+}
+
+function wbl()
+{
+  wordlebuddy list $1 $2
+}
+
+function wblc()
+{
+  wordlebuddy list $1 containing $2 $3
+}
+
+function wbv()
+{
+  wordlebuddy variations $1
+}
+
+function gitlogfiles()
+{
+  git log --date=format:"%Y.%m.%d" --pretty=format:"%Cgreen%h%Creset -%C(yellow)%d%Creset %<|($(($COLUMNS-40)))%s %C(cyan)(%cd) %C(green)<%an>%Creset" --abbrev-commit --name-status $@;
+}
+
+function gitlogvs()
+{
+  git cherry -v $1 `git symbolic-ref --short HEAD`
+}
+
+function gitpushthis()
+{
+  git push origin `git symbolic-ref --short HEAD` $@
+}
+
+function gitpushup()
+{
+  git push -u origin `git symbolic-ref --short HEAD`
+}
+
+function gitrebasevs()
+{
+  git rebase -i `gitlogvs $1 | head -1 | head -c 42 | tail -c 40`^
+}
+
+source /Users/abe/Library/emsdk/emsdk_env.sh >& /dev/null
+
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin/:$PATH
+export PATH=$ANDROID_HOME/emulator/:$PATH
+export PATH=$ANDROID_HOME/platform-tools/:$PATH
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
