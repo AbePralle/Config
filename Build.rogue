@@ -13,12 +13,18 @@ routine rogo_save
   execute @|cp ~/.gitconfig Source/_gitconfig
   execute @|cp ~/.vimrc Source/_vimrc
   execute @|cp ~/.zshrc Source/_zshrc
+  execute @|cp ~/.vim/syntax/rogue.vim Source/rogue_syntax.vim
+  execute @|cp ~/.vim/indent/rogue.vim Source/rogue_indent.vim
 endRoutine
 
 routine rogo_restore
   execute @|cp Source/_gitconfig ~/.gitconfig
   execute @|cp Source/_vimrc ~/.vimrc
   execute @|cp Source/_zshrc ~/.zshrc
+  File("~/.vim/syntax").create_folder
+  File("~/.vim/indent").create_folder
+  execute @|cp Source/rogue_syntax.vim ~/.vim/syntax/rogue.vim
+  execute @|cp Source/rogue_indent.vim ~/.vim/indent/rogue.vim
 endRoutine
 
 routine execute( commands:String, error_message=null:String, &suppress_error )->Logical
