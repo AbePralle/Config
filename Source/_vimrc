@@ -10,12 +10,30 @@
 "   Abe Pralle / Modified 2006.08.27
 
 "----Bram's Original Configuration------------------------------------
-
+"
 " Don't try too hard to be backwards-compatible with "vi".
 set nocompatible
 
 " Use console dialogs instead of GUI dialogs
 set guioptions+=c
+
+if has('gui_running')
+    " GUI colors
+    colorscheme darkblue
+else
+    " Non-GUI (terminal) colors
+    colorscheme blue
+endif
+
+set hlsearch
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -58,14 +76,6 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-  autocmd! bufreadpost *.mage set syntax=off
-endif
-
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
@@ -78,6 +88,7 @@ if has("autocmd")
 
   au BufRead,BufNewFile *.swift set filetype=swift
   au BufRead,BufNewFile *.rogue set filetype=rogue
+  au BufRead,BufNewFile *.mage  set filetype=mage
   au BufRead,BufNewFile *.r2 set filetype=rogue
   au BufRead,BufNewFile *.bard set filetype=bard
   au BufRead,BufNewFile *.slag set filetype=slag
@@ -152,8 +163,8 @@ set completeopt=
 set infercase
 
 " Set the font to 14pt Lucida_Console.
-"set gfn=Lucida_Console:h14
 set guifont=Menlo:h14
+"set guifont=Menlo:h19
 
 " Don't start jumping to search matches while you're still typing.
 set noincsearch
@@ -199,14 +210,6 @@ set scrolloff=8
 " take out default interpretation of octal,hex for ^A (add/increment)
 set nrformats=
 
-if has('gui_running')
-    " GUI colors
-    colorscheme darkblue
-else
-    " Non-GUI (terminal) colors
-    colorscheme blue
-endif
-
 " Set [TAB] to cycle through the auto-complete possibilities of a
 " word you're typing.  The possibilities come from other words in
 " the current file and other files you're editing.
@@ -233,7 +236,7 @@ set formatoptions=t
 command CDC cd %:p:h
 
 " Remove trailing whitespace from files
-autocmd FileType c,cpp,java,php,rogue,r2 autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,java,php,rogue,mage,r2 autocmd BufWritePre <buffer> :%s/\s\+$//e
 autocmd BufWritePre * :%s/\s\+$//e
 
 set laststatus=2
@@ -320,3 +323,4 @@ if has("gui_running")
     autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
   endif
 endif
+

@@ -2,8 +2,9 @@
 [user]
 
 # Please adapt and uncomment the following lines:
-name = Abe Pralle
-email = abe.pralle@gmail.com
+name = Brom Bresenham
+email = brom.bresenham@runegate.com
+	signingKey = ""
 [pull]
 	rebase = true
 [push]
@@ -11,3 +12,9 @@ email = abe.pralle@gmail.com
 [core]
 	autocrlf = input
 	editor = vim
+[gpg]
+	program = gpg
+[commit]
+	gpgSign = false
+[tag]
+	forceSignAnnotated = false

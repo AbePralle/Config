@@ -1,6 +1,3 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
-export PATH="/opt/morlock/bin":$PATH
-
 set -o vi
 bindkey "^R" history-incremental-search-backward
 
@@ -9,25 +6,31 @@ export HISTSIZE=100
 export SAVEHIST=100
 
 # Command prompt
-precmd() { print "" }
+precmd()
+{
+  echo -ne "\e]1;$(grogo tab title)\a"
+  print ""
+}
+
 PROMPT="%~> "
 
 setopt interactive_comments
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-alias ep="nogui-mvim ~/.zshrc && source ~/.zshrc"
+#alias ep="nogui-mvim ~/.zshrc && source ~/.zshrc"
+alias ep="vim ~/.zshrc && source ~/.zshrc"
 
 alias doglog="mvim ~/Dropbox/Documents/Misc/DogLog.txt"
-alias eblog="mvim ~/Dropbox/AnecdotalAbe/Blogs/RedPill.txt"
-alias edreams="mvim ~/Dropbox/Documents/DreamJournal/2022.txt"
+alias eaa="mvim ~/Dropbox/AnecdotalAbe/Podcasts/Script.txt"
+alias edreams="mvim ~/Dropbox/Documents/DreamJournal/2023.txt"
 alias evision="mvim ~/Dropbox/Documents/Vision.txt"
 alias eg="mvim ~/Dropbox/Code/Grogo/Build.rogue"
 alias esrc="mvim ~/Dropbox/Documents/Misc/SourceMessages.txt"
 alias erants="mvim ~/Dropbox/Documents/AprilLee/Rants.txt"
 alias erecipes="mvim ~/Dropbox/Documents/Recipes.txt"
 alias elight="mvim ~/Dropbox/Documents/Light.txt"
+alias grogo="rogo --build=~/Dropbox/Code/Grogo/Build.rogue \"$@\""
 alias md="open -a /Applications/MacDown.app"
+alias ql="qlmanage"
 
 alias cdaxor="cd ~/Projects/Games/AxorTheMighty"
 alias cdboss="cd ~/Projects/Boss"
@@ -35,6 +38,7 @@ alias cdpcore="cd ~/Projects/Plasmacore"
 alias cdplaydate="cd /Users/abe/Developer/PlaydateSDK"
 alias cdr2="cd ~/Projects/R2"
 alias cdrogue="cd ~/Projects/Rogue"
+alias cdtools="cd ~/Projects/Tools"
 
 alias gitco="git checkout"
 alias gitd="git diff"
@@ -124,3 +128,5 @@ export PATH=$ANDROID_HOME/platform-tools/:$PATH
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/morlock/bin:$PATH"
