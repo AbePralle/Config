@@ -2,31 +2,18 @@
 # to this folder and type "rogo" at the command line, or "rogo help" for a list
 # of supported commands.
 
-$requireRogue "2.0.8"
+$requireRogue "2.9"
+
+uses Utility/VersionNumber
 
 routine rogo_default
   rogo_help
 endRoutine
 
-routine rogo_save
-  File("Source").create_folder
-  execute @|cp ~/.gitconfig Source/_gitconfig
-  execute @|cp ~/.vimrc Source/_vimrc
-  execute @|cp ~/.zshrc Source/_zshrc
-  execute @|cp ~/.vim/syntax/rogue.vim Source/rogue_syntax.vim
-  execute @|cp ~/.vim/indent/rogue.vim Source/rogue_indent.vim
-  execute @|cp ~/.ssh/Build.rogue Source/Build.rogue.ssh
-endRoutine
-
-routine rogo_restore
-  execute @|cp Source/_gitconfig ~/.gitconfig
-  execute @|cp Source/_vimrc ~/.vimrc
-  execute @|cp Source/_zshrc ~/.zshrc
-  File("~/.vim/syntax").create_folder
-  File("~/.vim/indent").create_folder
-  execute @|cp Source/rogue_syntax.vim ~/.vim/syntax/rogue.vim
-  execute @|cp Source/rogue_indent.vim ~/.vim/indent/rogue.vim
-  execute @|cp Source/Build.rogue.ssh ~/.ssh/Build.rogue
+routine rogo_brom
+  # Clears SSH identities and re-adds Brom's identity.
+  execute @|ssh-add -D
+           |ssh-add id_ed25519-brom
 endRoutine
 
 routine execute( commands:String, error_message=null:String, &suppress_error )->Logical

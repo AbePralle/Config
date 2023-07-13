@@ -17,7 +17,7 @@ PROMPT="%~> "
 setopt interactive_comments
 
 #alias ep="nogui-mvim ~/.zshrc && source ~/.zshrc"
-alias ep="vim ~/.zshrc && source ~/.zshrc"
+alias erc="vim ~/.zshrc && source ~/.zshrc"
 
 alias doglog="mvim ~/Dropbox/Documents/Misc/DogLog.txt"
 alias eaa="mvim ~/Dropbox/AnecdotalAbe/Podcasts/Script.txt"
@@ -28,9 +28,11 @@ alias esrc="mvim ~/Dropbox/Documents/Misc/SourceMessages.txt"
 alias erants="mvim ~/Dropbox/Documents/AprilLee/Rants.txt"
 alias erecipes="mvim ~/Dropbox/Documents/Recipes.txt"
 alias elight="mvim ~/Dropbox/Documents/Light.txt"
+alias enotes="mvim ~/Dropbox/Documents/Notes.txt"
 alias grogo="rogo --build=~/Dropbox/Code/Grogo/Build.rogue \"$@\""
 alias md="open -a /Applications/MacDown.app"
 alias ql="qlmanage"
+alias vscode="open -a /Applications/Visual\ Studio\ Code.app \"$@\""
 
 alias cdaxor="cd ~/Projects/Games/AxorTheMighty"
 alias cdboss="cd ~/Projects/Boss"
@@ -39,6 +41,9 @@ alias cdplaydate="cd /Users/abe/Developer/PlaydateSDK"
 alias cdr2="cd ~/Projects/R2"
 alias cdrogue="cd ~/Projects/Rogue"
 alias cdtools="cd ~/Projects/Tools"
+alias cdvimage="cd ~/Projects/Tools/Vimage"
+
+alias roguelibs="(cdrogue && rogo libs)"
 
 alias gitco="git checkout"
 alias gitd="git diff"
@@ -47,11 +52,45 @@ alias gits="git status"
 alias gitundocommit="git reset --soft HEAD~"
 alias gitbranches="git fetch --all && git branch -a"
 alias gitb="git branch"
-alias gitrmlocal="git branch -d "
+alias gitrmlocal="git branch -d"
+alias gitcp="git cherry-pick"
 
 alias h="history -200 | grogo cull history"
+alias mvimit="history -20 | grogo mvimit $1"
+alias mvimp="grogo mvimpb $1"
 alias pbj="grogo pbj"
 alias pbp="grogo pbp"
+
+alias godocs="grogo gdoc"
+alias cgrep="grogo cgrep"
+alias rogrep="grogo rogrep"
+
+function godot()
+{
+  if [ "$1" ]; then
+    # project filepath given
+    if [ -f "$1/project.godot" ]; then
+      open -a /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64 "$1/project.godot";
+    else
+      open -a /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64 "$1";
+    fi
+  else
+    # no arg; just run godot
+    open -a /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64
+  fi
+
+  #if [ -f "project.godot" ]; then
+  #  echo "project exists";
+  #else
+  #  echo "no bueno";
+  #fi
+}
+
+function gitrmbranch()
+{
+  git push -d origin $1
+  git branch -D $1
+}
 
 function gitdx()
 {
@@ -71,6 +110,11 @@ function cdnew()
 {
   mkdir -p $1
   cd $1
+}
+
+function mvimit()
+{
+  mvim $(!!)
 }
 
 function wbs()
@@ -121,6 +165,7 @@ function gitrebasevs()
 source /Users/abe/Library/emsdk/emsdk_env.sh >& /dev/null
 
 export ANDROID_HOME=~/Library/Android/sdk
+export ANDROID_SDK_ROOT=~/Library/Android/sdk
 export PATH=$ANDROID_HOME/cmdline-tools/latest/bin/:$PATH
 export PATH=$ANDROID_HOME/emulator/:$PATH
 export PATH=$ANDROID_HOME/platform-tools/:$PATH
@@ -130,3 +175,13 @@ export EDITOR="$VISUAL"
 
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/morlock/bin:$PATH"
+
+# post brew install python3
+# If you need to have openjdk first in your PATH, run:
+#  echo 'export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
+#
+#For compilers to find openjdk you may need to set:
+#  export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

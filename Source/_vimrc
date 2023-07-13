@@ -195,9 +195,14 @@ set shiftwidth=2
 set tabstop=2
 set et  " Expands any tab characters you type to be the corresponding number of spaces.
 
-"autocmd BufRead,BufNewFile *.js set shiftwidth=0
-"autocmd BufRead,BufNewFile *.js set tabstop=4
-"autocmd BufRead,BufNewFile *.js set noet
+"autocmd BufRead,BufNewFile *.h set shiftwidth=0
+"autocmd BufRead,BufNewFile *.h set tabstop=2
+"autocmd BufRead,BufNewFile *.h set noet
+"autocmd BufRead,BufNewFile *.cpp set shiftwidth=0
+"autocmd BufRead,BufNewFile *.cpp set tabstop=2
+"autocmd BufRead,BufNewFile *.cpp set noet
+
+autocmd BufRead,BufNewFile *.gd set noet
 
 autocmd BufRead,BufNewFile *.swift set shiftwidth=0
 "autocmd BufRead,BufNewFile *.js set tabstop=4

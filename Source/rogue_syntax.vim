@@ -1,6 +1,6 @@
 " Vim syntax file
 " Language:     Rogue
-" Maintainer:   Abe Pralle <abe.pralle@gmail.com>
+" Maintainer:   Brom Bresenham
 " URL:
 " Last Change:  2016.12.08
 
@@ -55,6 +55,7 @@ syn match   rogueDirective    "\$compileArg\>"
 syn match   rogueDirective    "\$define\>"
 syn match   rogueDirective    "\$defined\>"
 syn match   rogueDirective    "\$endMacro\>"
+syn match   rogueDirective    "\$endLocalMacro\>"
 syn match   rogueDirective    "\$include\>"
 syn match   rogueDirective    "\$includeFolder\>"
 syn match   rogueDirective    "\$if\>"
