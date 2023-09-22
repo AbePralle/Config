@@ -8,7 +8,9 @@ export SAVEHIST=100
 # Command prompt
 precmd()
 {
-  echo -ne "\e]1;$(grogo tab title)\a"
+  #echo -ne "\e]1;$(grogo tab title $COLUMNS $LINES)\a"
+  #echo -ne "\e]1;$(dirs -p | head -1) - $COLUMNS\x78$LINES\a"
+  #echo -ne "\e]1;$(dirs -p | head -1) - $COLUMNS\x78$LINES\a"
   print ""
 }
 
@@ -33,15 +35,30 @@ alias grogo="rogo --build=~/Dropbox/Code/Grogo/Build.rogue \"$@\""
 alias md="open -a /Applications/MacDown.app"
 alias ql="qlmanage"
 alias vscode="open -a /Applications/Visual\ Studio\ Code.app \"$@\""
+alias rogolibs="(cdrogue && rogo libs)"
+alias makegif="grogo make gif $1 $2"
+
+alias sshabe="(cd ~/.ssh && rogo abe)"
+alias sshbrom="(cd ~/.ssh && rogo brom)"
+
+alias cdlog="cd ~/Projects/Games/AxorTheMightyGD/Devlog/Week7"
+alias elog="mvim ~/Projects/Games/AxorTheMightyGD/Devlog/Week7/Log.txt"
 
 alias cdaxor="cd ~/Projects/Games/AxorTheMighty"
+alias cdaxorgd="cd ~/Projects/Games/AxorTheMightyGD"
+alias cdaxorart="cd ~/Projects/Games/AxorTheMightyArt"
 alias cdboss="cd ~/Projects/Boss"
+alias cdbrom="cd ~/Projects/Web/brombres"
 alias cdpcore="cd ~/Projects/Plasmacore"
+alias cdwarlock="cd ~/Projects/Warlock"
+alias ewarlock="cdwarlock && mvim -p Source/Main.rogue Libraries/Warlock/Libraries/Rogue/Warlock/Warlock.rogue ~/Projects/Games/AxorTheMighty/Libraries/Plasmacore/Libraries/Rogue/Plasmacore/Plasmacore.rogue"
 alias cdplaydate="cd /Users/abe/Developer/PlaydateSDK"
 alias cdr2="cd ~/Projects/R2"
 alias cdrogue="cd ~/Projects/Rogue"
 alias cdtools="cd ~/Projects/Tools"
 alias cdvimage="cd ~/Projects/Tools/Vimage"
+alias notify="say -v Samantha Done"
+alias edraft="mvim ~/Dropbox/Misc/Draft.txt"
 
 alias roguelibs="(cdrogue && rogo libs)"
 
@@ -54,6 +71,8 @@ alias gitbranches="git fetch --all && git branch -a"
 alias gitb="git branch"
 alias gitrmlocal="git branch -d"
 alias gitcp="git cherry-pick"
+alias dnd="grogo dnd"
+alias demo="grogo demo"
 
 alias h="history -200 | grogo cull history"
 alias mvimit="history -20 | grogo mvimit $1"
@@ -65,18 +84,20 @@ alias godocs="grogo gdoc"
 alias cgrep="grogo cgrep"
 alias rogrep="grogo rogrep"
 
+alias bg="open ~/Dropbox/Programbling/Podcasts/DarkGrayBG.html"
+
 function godot()
 {
   if [ "$1" ]; then
     # project filepath given
     if [ -f "$1/project.godot" ]; then
-      open -a /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64 "$1/project.godot";
+      /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64 "$1/project.godot";
     else
-      open -a /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64 "$1";
+      /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64 "$1";
     fi
   else
     # no arg; just run godot
-    open -a /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64
+    /Users/abe/Projects/Godot/bin/godot.macos.editor.arm64
   fi
 
   #if [ -f "project.godot" ]; then
@@ -176,6 +197,9 @@ export EDITOR="$VISUAL"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/morlock/bin:$PATH"
 
+# Auto SSH/SFTP login:
+# Add ssh public key to server's .ssh/authorized_keys
+
 # post brew install python3
 # If you need to have openjdk first in your PATH, run:
 #  echo 'export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
@@ -184,4 +208,8 @@ export PATH="/opt/morlock/bin:$PATH"
 #  export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 

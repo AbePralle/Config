@@ -10,6 +10,12 @@ routine rogo_default
   rogo_help
 endRoutine
 
+routine rogo_abe
+  # Clears SSH identities and re-adds Abe's identity.
+  execute @|ssh-add -D
+           |ssh-add id_ed25519-abe
+endRoutine
+
 routine rogo_brom
   # Clears SSH identities and re-adds Brom's identity.
   execute @|ssh-add -D

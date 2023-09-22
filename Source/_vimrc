@@ -203,6 +203,11 @@ set et  " Expands any tab characters you type to be the corresponding number of 
 "autocmd BufRead,BufNewFile *.cpp set noet
 
 autocmd BufRead,BufNewFile *.gd set noet
+autocmd BufRead,BufNewFile *.gd set foldnestmax=1
+autocmd BufRead,BufNewFile *.gd set foldmethod=indent
+
+autocmd BufRead,BufNewFile *.rogue set foldnestmax=3
+autocmd BufRead,BufNewFile *.rogue set foldmethod=indent
 
 autocmd BufRead,BufNewFile *.swift set shiftwidth=0
 "autocmd BufRead,BufNewFile *.js set tabstop=4
@@ -328,4 +333,3 @@ if has("gui_running")
     autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
   endif
 endif
-
